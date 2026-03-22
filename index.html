@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据可视化仪表板</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>📊 数据分析</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active">
+                    <span class="nav-icon">📈</span>
+                    <span>仪表板</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">📁</span>
+                    <span>数据管理</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">📋</span>
+                    <span>报表中心</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                    <span>系统设置</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <h1>数据概览</h1>
+                <div class="user-info">
+                    <span class="notification">🔔</span>
+                    <div class="avatar">👤</div>
+                    <span>管理员</span>
+                </div>
+            </header>
+
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">👥</div>
+                    <div class="stat-info">
+                        <div class="stat-label">总用户数</div>
+                        <div class="stat-value" id="total-users">0</div>
+                        <div class="stat-change positive">↑ 12.5%</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">💰</div>
+                    <div class="stat-info">
+                        <div class="stat-label">总收入</div>
+                        <div class="stat-value" id="total-revenue">¥0</div>
+                        <div class="stat-change positive">↑ 8.2%</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">🛒</div>
+                    <div class="stat-info">
+                        <div class="stat-label">订单数</div>
+                        <div class="stat-value" id="total-orders">0</div>
+                        <div class="stat-change positive">↑ 23.1%</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">📦</div>
+                    <div class="stat-info">
+                        <div class="stat-label">产品数</div>
+                        <div class="stat-value" id="total-products">0</div>
+                        <div class="stat-change negative">↓ 3.4%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>销售趋势</h3>
+                        <select class="chart-filter">
+                            <option>最近 7 天</option>
+                            <option>最近 30 天</option>
+                            <option>最近 90 天</option>
+                        </select>
+                    </div>
+                    <canvas id="salesChart"></canvas>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>用户分布</h3>
+                    </div>
+                    <canvas id="userChart"></canvas>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>订单状态</h3>
+                    </div>
+                    <canvas id="orderChart"></canvas>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>产品类别</h3>
+                    </div>
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+
+            <div class="recent-orders">
+                <h3>最近订单</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>订单号</th>
+                                <th>客户</th>
+                                <th>金额</th>
+                                <th>状态</th>
+                                <th>日期</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-table">
+                            <!-- 动态加载 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
