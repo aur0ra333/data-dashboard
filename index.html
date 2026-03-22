@@ -8,8 +8,14 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <div class="animated-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
     <div class="dashboard">
-        <aside class="sidebar">
+        <aside class="sidebar glass">
             <div class="sidebar-header">
                 <h2>📊 数据分析</h2>
             </div>
@@ -34,9 +40,15 @@
         </aside>
 
         <main class="main-content">
-            <header class="top-bar">
-                <h1>数据概览</h1>
-                <div class="user-info">
+            <header class="top-bar glass">
+                <div class="top-bar-left">
+                    <h1>数据概览</h1>
+                    <button class="refresh-btn" onclick="refreshData()" title="刷新数据">🔄</button>
+                </div>
+                <div class="top-bar-right">
+                    <button class="theme-toggle" id="theme-toggle" title="切换主题">
+                        <span class="icon">🌙</span>
+                    </button>
                     <span class="notification">🔔</span>
                     <div class="avatar">👤</div>
                     <span>管理员</span>
@@ -44,7 +56,7 @@
             </header>
 
             <div class="stats-cards">
-                <div class="stat-card">
+                <div class="stat-card glass-card">
                     <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">👥</div>
                     <div class="stat-info">
                         <div class="stat-label">总用户数</div>
@@ -53,7 +65,7 @@
                     </div>
                 </div>
 
-                <div class="stat-card">
+                <div class="stat-card glass-card">
                     <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">💰</div>
                     <div class="stat-info">
                         <div class="stat-label">总收入</div>
@@ -62,7 +74,7 @@
                     </div>
                 </div>
 
-                <div class="stat-card">
+                <div class="stat-card glass-card">
                     <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">🛒</div>
                     <div class="stat-info">
                         <div class="stat-label">订单数</div>
@@ -71,7 +83,7 @@
                     </div>
                 </div>
 
-                <div class="stat-card">
+                <div class="stat-card glass-card">
                     <div class="stat-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">📦</div>
                     <div class="stat-info">
                         <div class="stat-label">产品数</div>
@@ -82,33 +94,33 @@
             </div>
 
             <div class="charts-grid">
-                <div class="chart-card">
+                <div class="chart-card glass-card">
                     <div class="chart-header">
                         <h3>销售趋势</h3>
-                        <select class="chart-filter">
-                            <option>最近 7 天</option>
-                            <option>最近 30 天</option>
-                            <option>最近 90 天</option>
+                        <select class="chart-filter" id="salesFilter" onchange="updateSalesChart()">
+                            <option value="7">最近 7 天</option>
+                            <option value="30">最近 30 天</option>
+                            <option value="90">最近 90 天</option>
                         </select>
                     </div>
                     <canvas id="salesChart"></canvas>
                 </div>
 
-                <div class="chart-card">
+                <div class="chart-card glass-card">
                     <div class="chart-header">
                         <h3>用户分布</h3>
                     </div>
                     <canvas id="userChart"></canvas>
                 </div>
 
-                <div class="chart-card">
+                <div class="chart-card glass-card">
                     <div class="chart-header">
                         <h3>订单状态</h3>
                     </div>
                     <canvas id="orderChart"></canvas>
                 </div>
 
-                <div class="chart-card">
+                <div class="chart-card glass-card">
                     <div class="chart-header">
                         <h3>产品类别</h3>
                     </div>
@@ -116,8 +128,11 @@
                 </div>
             </div>
 
-            <div class="recent-orders">
-                <h3>最近订单</h3>
+            <div class="recent-orders glass-card">
+                <div class="section-header">
+                    <h3>最近订单</h3>
+                    <button class="btn-view-all" onclick="viewAllOrders()">查看全部 →</button>
+                </div>
                 <div class="table-container">
                     <table>
                         <thead>
@@ -130,7 +145,6 @@
                             </tr>
                         </thead>
                         <tbody id="orders-table">
-                            <!-- 动态加载 -->
                         </tbody>
                     </table>
                 </div>
