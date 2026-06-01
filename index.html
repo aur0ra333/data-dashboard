@@ -58,20 +58,20 @@
             <section class="filter-strip glass-card">
                 <div class="filter-group">
                     <span>时间范围</span>
-                    <button class="filter-chip active">近 7 天</button>
-                    <button class="filter-chip">近 30 天</button>
-                    <button class="filter-chip">本季度</button>
+                    <button class="filter-chip active" data-range="7">近 7 天</button>
+                    <button class="filter-chip" data-range="30">近 30 天</button>
+                    <button class="filter-chip" data-range="90">本季度</button>
                 </div>
                 <div class="filter-group">
                     <span>渠道</span>
-                    <select>
+                    <select id="channelFilter">
                         <option>全部渠道</option>
                         <option>自然访问</option>
                         <option>活动投放</option>
                         <option>老客复购</option>
                     </select>
                 </div>
-                <button class="export-btn">导出报表</button>
+                <button class="export-btn" onclick="exportOrdersCSV()">导出报表</button>
             </section>
 
             <div class="stats-cards">
