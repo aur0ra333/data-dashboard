@@ -186,11 +186,11 @@ function animateNumber(id, target, duration = 1500, prefix = '') {
 // 加载订单数据
 function loadOrders() {
     const orders = [
-        { id: 'ORD-001', customer: '张三', amount: 1299, status: 'success', date: '2026-03-22' },
-        { id: 'ORD-002', customer: '李四', amount: 899, status: 'pending', date: '2026-03-22' },
-        { id: 'ORD-003', customer: '王五', amount: 2599, status: 'success', date: '2026-03-21' },
-        { id: 'ORD-004', customer: '赵六', amount: 459, status: 'error', date: '2026-03-21' },
-        { id: 'ORD-005', customer: '孙七', amount: 3299, status: 'success', date: '2026-03-20' }
+        { id: 'ORD-001', customer: '客户 A', amount: 1299, status: 'success', date: '2026-05-28' },
+        { id: 'ORD-002', customer: '客户 B', amount: 899, status: 'pending', date: '2026-05-28' },
+        { id: 'ORD-003', customer: '客户 C', amount: 2599, status: 'success', date: '2026-05-27' },
+        { id: 'ORD-004', customer: '客户 D', amount: 459, status: 'error', date: '2026-05-27' },
+        { id: 'ORD-005', customer: '客户 E', amount: 3299, status: 'success', date: '2026-05-26' }
     ];
     
     const tbody = document.getElementById('orders-table');
@@ -225,7 +225,7 @@ function refreshData() {
         updateSalesChart();
         loadOrders();
         btn.style.animation = '';
-        showNotification('数据已更新', 'success');
+        showNotification('模拟数据已更新', 'success');
     }, 1000);
 }
 

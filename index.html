@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>数据可视化仪表板</title>
+    <title>运营数据看板</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -17,23 +17,23 @@
     <div class="dashboard">
         <aside class="sidebar glass">
             <div class="sidebar-header">
-                <h2>📊 数据分析</h2>
+                <h2>运营数据看板</h2>
             </div>
             <nav class="sidebar-nav">
                 <a href="#" class="nav-item active">
-                    <span class="nav-icon">📈</span>
+                    <span class="nav-icon">01</span>
                     <span>仪表板</span>
                 </a>
                 <a href="#" class="nav-item">
-                    <span class="nav-icon">📁</span>
+                    <span class="nav-icon">02</span>
                     <span>数据管理</span>
                 </a>
                 <a href="#" class="nav-item">
-                    <span class="nav-icon">📋</span>
+                    <span class="nav-icon">03</span>
                     <span>报表中心</span>
                 </a>
                 <a href="#" class="nav-item">
-                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-icon">04</span>
                     <span>系统设置</span>
                 </a>
             </nav>
@@ -43,50 +43,50 @@
             <header class="top-bar glass">
                 <div class="top-bar-left">
                     <h1>数据概览</h1>
-                    <button class="refresh-btn" onclick="refreshData()" title="刷新数据">🔄</button>
+                    <button class="refresh-btn" onclick="refreshData()" title="刷新数据">刷新</button>
                 </div>
                 <div class="top-bar-right">
                     <button class="theme-toggle" id="theme-toggle" title="切换主题">
                         <span class="icon">🌙</span>
                     </button>
-                    <span class="notification">🔔</span>
-                    <div class="avatar">👤</div>
-                    <span>管理员</span>
+                    <span class="notification">演示数据</span>
+                    <div class="avatar">D</div>
+                    <span>Demo</span>
                 </div>
             </header>
 
             <div class="stats-cards">
                 <div class="stat-card glass-card">
-                    <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">👥</div>
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);">UV</div>
                     <div class="stat-info">
-                        <div class="stat-label">总用户数</div>
+                        <div class="stat-label">活跃用户</div>
                         <div class="stat-value" id="total-users">0</div>
                         <div class="stat-change positive">↑ 12.5%</div>
                     </div>
                 </div>
 
                 <div class="stat-card glass-card">
-                    <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">💰</div>
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #0ea5e9 0%, #10b981 100%);">¥</div>
                     <div class="stat-info">
-                        <div class="stat-label">总收入</div>
+                        <div class="stat-label">成交金额</div>
                         <div class="stat-value" id="total-revenue">¥0</div>
                         <div class="stat-change positive">↑ 8.2%</div>
                     </div>
                 </div>
 
                 <div class="stat-card glass-card">
-                    <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">🛒</div>
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #334155 0%, #0f172a 100%);">ORD</div>
                     <div class="stat-info">
-                        <div class="stat-label">订单数</div>
+                        <div class="stat-label">订单数量</div>
                         <div class="stat-value" id="total-orders">0</div>
                         <div class="stat-change positive">↑ 23.1%</div>
                     </div>
                 </div>
 
                 <div class="stat-card glass-card">
-                    <div class="stat-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">📦</div>
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #16a34a 0%, #0891b2 100%);">SKU</div>
                     <div class="stat-info">
-                        <div class="stat-label">产品数</div>
+                        <div class="stat-label">SKU 数量</div>
                         <div class="stat-value" id="total-products">0</div>
                         <div class="stat-change negative">↓ 3.4%</div>
                     </div>
