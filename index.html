@@ -55,6 +55,25 @@
                 </div>
             </header>
 
+            <section class="filter-strip glass-card">
+                <div class="filter-group">
+                    <span>时间范围</span>
+                    <button class="filter-chip active">近 7 天</button>
+                    <button class="filter-chip">近 30 天</button>
+                    <button class="filter-chip">本季度</button>
+                </div>
+                <div class="filter-group">
+                    <span>渠道</span>
+                    <select>
+                        <option>全部渠道</option>
+                        <option>自然访问</option>
+                        <option>活动投放</option>
+                        <option>老客复购</option>
+                    </select>
+                </div>
+                <button class="export-btn">导出报表</button>
+            </section>
+
             <div class="stats-cards">
                 <div class="stat-card glass-card">
                     <div class="stat-icon" style="background: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);">UV</div>
@@ -126,6 +145,49 @@
                     </div>
                     <canvas id="categoryChart"></canvas>
                 </div>
+            </div>
+
+            <div class="insight-grid">
+                <section class="funnel-card glass-card">
+                    <div class="section-header">
+                        <h3>转化漏斗</h3>
+                        <span class="section-note">演示数据</span>
+                    </div>
+                    <div class="funnel-list">
+                        <div class="funnel-row">
+                            <span>访问</span>
+                            <div class="funnel-bar"><i style="width: 100%"></i></div>
+                            <strong>18,420</strong>
+                        </div>
+                        <div class="funnel-row">
+                            <span>浏览商品</span>
+                            <div class="funnel-bar"><i style="width: 72%"></i></div>
+                            <strong>13,260</strong>
+                        </div>
+                        <div class="funnel-row">
+                            <span>提交订单</span>
+                            <div class="funnel-bar"><i style="width: 38%"></i></div>
+                            <strong>6,998</strong>
+                        </div>
+                        <div class="funnel-row">
+                            <span>完成支付</span>
+                            <div class="funnel-bar"><i style="width: 26%"></i></div>
+                            <strong>4,789</strong>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="operations-card glass-card">
+                    <div class="section-header">
+                        <h3>运营提示</h3>
+                        <button class="btn-view-all" onclick="refreshData()">刷新</button>
+                    </div>
+                    <ul class="operations-list">
+                        <li><strong>成交金额</strong><span>较上周期上升 8.2%，活动渠道贡献明显。</span></li>
+                        <li><strong>订单状态</strong><span>处理中订单占比 25%，可关注履约时效。</span></li>
+                        <li><strong>商品结构</strong><span>电子产品销量最高，图书和家居仍有提升空间。</span></li>
+                    </ul>
+                </section>
             </div>
 
             <div class="recent-orders glass-card">

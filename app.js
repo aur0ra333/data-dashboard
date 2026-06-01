@@ -305,6 +305,14 @@ function setupEventListeners() {
             e.currentTarget.classList.add('active');
         });
     });
+
+    document.querySelectorAll('.filter-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            document.querySelectorAll('.filter-chip').forEach(item => item.classList.remove('active'));
+            chip.classList.add('active');
+            refreshData();
+        });
+    });
 }
 
 // 通知提示
