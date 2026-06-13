@@ -11,27 +11,33 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <!-- Loading 遮罩 -->
+    <div id="loading-overlay" class="loading-overlay" style="display:none;">
+        <div class="loading-spinner"></div>
+        <p>正在刷新数据...</p>
+    </div>
+
     <div class="dashboard">
         <aside class="sidebar glass">
             <div class="sidebar-header">
                 <h2>运营数据看板</h2>
             </div>
             <nav class="sidebar-nav">
-                <a href="#" class="nav-item active">
+                <a href="#" class="nav-item active" data-section="概览">
                     <span class="nav-icon">01</span>
-                    <span>仪表板</span>
+                    <span>概览</span>
                 </a>
-                <a href="#" class="nav-item">
+                <a href="#" class="nav-item" data-section="订单">
                     <span class="nav-icon">02</span>
-                    <span>数据管理</span>
+                    <span>订单</span>
                 </a>
-                <a href="#" class="nav-item">
+                <a href="#" class="nav-item" data-section="分析">
                     <span class="nav-icon">03</span>
-                    <span>报表中心</span>
+                    <span>分析</span>
                 </a>
-                <a href="#" class="nav-item">
+                <a href="#" class="nav-item" data-section="设置">
                     <span class="nav-icon">04</span>
-                    <span>系统设置</span>
+                    <span>设置</span>
                 </a>
             </nav>
         </aside>
@@ -40,169 +46,359 @@
             <header class="top-bar glass">
                 <div class="top-bar-left">
                     <h1>数据概览</h1>
-                    <button class="refresh-btn" onclick="refreshData()" title="刷新数据">刷新</button>
+                    <button class="refresh-btn" onclick="refreshData()" title="刷新数据">&#x21bb;</button>
                 </div>
                 <div class="top-bar-right">
-                    <span class="notification">演示数据</span>
+                    <span class="notification">实时数据</span>
                     <div class="avatar">D</div>
                     <span>Demo</span>
                 </div>
             </header>
 
-            <section class="filter-strip glass-card">
-                <div class="filter-group">
-                    <span>时间范围</span>
-                    <button class="filter-chip active" data-range="7">近 7 天</button>
-                    <button class="filter-chip" data-range="30">近 30 天</button>
-                    <button class="filter-chip" data-range="90">本季度</button>
-                </div>
-                <div class="filter-group">
-                    <span>渠道</span>
-                    <select id="channelFilter">
-                        <option>全部渠道</option>
-                        <option>自然访问</option>
-                        <option>活动投放</option>
-                        <option>老客复购</option>
-                    </select>
-                </div>
-                <button class="export-btn" onclick="exportOrdersCSV()">导出报表</button>
-            </section>
-
-            <div class="stats-cards">
-                <div class="stat-card glass-card">
-                    <div class="stat-icon" style="background: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);">UV</div>
-                    <div class="stat-info">
-                        <div class="stat-label">活跃用户</div>
-                        <div class="stat-value" id="total-users">0</div>
-                        <div class="stat-change positive">↑ 12.5%</div>
+            <!-- ============ 概览区 ============ -->
+            <div id="section-概览" class="content-section">
+                <section class="filter-strip glass-card">
+                    <div class="filter-group">
+                        <span>时间范围</span>
+                        <button class="filter-chip active" data-range="7">近 7 天</button>
+                        <button class="filter-chip" data-range="30">近 30 天</button>
+                        <button class="filter-chip" data-range="90">近 90 天</button>
                     </div>
-                </div>
-
-                <div class="stat-card glass-card">
-                    <div class="stat-icon" style="background: linear-gradient(135deg, #0ea5e9 0%, #10b981 100%);">¥</div>
-                    <div class="stat-info">
-                        <div class="stat-label">成交金额</div>
-                        <div class="stat-value" id="total-revenue">¥0</div>
-                        <div class="stat-change positive">↑ 8.2%</div>
-                    </div>
-                </div>
-
-                <div class="stat-card glass-card">
-                    <div class="stat-icon" style="background: linear-gradient(135deg, #334155 0%, #0f172a 100%);">ORD</div>
-                    <div class="stat-info">
-                        <div class="stat-label">订单数量</div>
-                        <div class="stat-value" id="total-orders">0</div>
-                        <div class="stat-change positive">↑ 23.1%</div>
-                    </div>
-                </div>
-
-                <div class="stat-card glass-card">
-                    <div class="stat-icon" style="background: linear-gradient(135deg, #16a34a 0%, #0891b2 100%);">SKU</div>
-                    <div class="stat-info">
-                        <div class="stat-label">SKU 数量</div>
-                        <div class="stat-value" id="total-products">0</div>
-                        <div class="stat-change negative">↓ 3.4%</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="charts-grid">
-                <div class="chart-card glass-card">
-                    <div class="chart-header">
-                        <h3>销售趋势</h3>
-                        <select class="chart-filter" id="salesFilter" onchange="updateSalesChart()">
-                            <option value="7">最近 7 天</option>
-                            <option value="30">最近 30 天</option>
-                            <option value="90">最近 90 天</option>
+                    <div class="filter-group">
+                        <span>渠道</span>
+                        <select id="channelFilter">
+                            <option>全部渠道</option>
+                            <option>微信</option>
+                            <option>支付宝</option>
+                            <option>PC网页</option>
+                            <option>APP</option>
+                            <option>小程序</option>
                         </select>
                     </div>
-                    <canvas id="salesChart"></canvas>
+                    <button class="export-btn" onclick="exportOrdersCSV()">导出报表</button>
+                </section>
+
+                <div class="stats-cards">
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);">UV</div>
+                        <div class="stat-info">
+                            <div class="stat-label">活跃用户</div>
+                            <div class="stat-value" id="total-users">0</div>
+                            <div class="stat-change positive" id="change-users">↑ --</div>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #0ea5e9 0%, #10b981 100%);">&yen;</div>
+                        <div class="stat-info">
+                            <div class="stat-label">成交金额</div>
+                            <div class="stat-value" id="total-revenue">&yen;0</div>
+                            <div class="stat-change positive" id="change-revenue">↑ --</div>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #334155 0%, #0f172a 100%);">ORD</div>
+                        <div class="stat-info">
+                            <div class="stat-label">订单数量</div>
+                            <div class="stat-value" id="total-orders">0</div>
+                            <div class="stat-change positive" id="change-orders">↑ --</div>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #16a34a 0%, #0891b2 100%);">SKU</div>
+                        <div class="stat-info">
+                            <div class="stat-label">SKU 数量</div>
+                            <div class="stat-value" id="total-products">0</div>
+                            <div class="stat-change negative" id="change-sku">↓ --</div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="chart-card glass-card">
-                    <div class="chart-header">
-                        <h3>用户分布</h3>
+                <div class="charts-grid">
+                    <div class="chart-card glass-card">
+                        <div class="chart-header">
+                            <h3>销售趋势</h3>
+                            <select class="chart-filter" id="salesFilter" onchange="updateSalesChart()">
+                                <option value="7">最近 7 天</option>
+                                <option value="30">最近 30 天</option>
+                                <option value="90">最近 90 天</option>
+                            </select>
+                        </div>
+                        <div class="chart-wrap"><canvas id="salesChart"></canvas></div>
                     </div>
-                    <canvas id="userChart"></canvas>
+                    <div class="chart-card glass-card">
+                        <div class="chart-header">
+                            <h3>用户分布</h3>
+                        </div>
+                        <div class="chart-wrap"><canvas id="userChart"></canvas></div>
+                    </div>
+                    <div class="chart-card glass-card">
+                        <div class="chart-header">
+                            <h3>订单状态</h3>
+                        </div>
+                        <div class="chart-wrap"><canvas id="orderChart"></canvas></div>
+                    </div>
+                    <div class="chart-card glass-card">
+                        <div class="chart-header">
+                            <h3>产品类别</h3>
+                        </div>
+                        <div class="chart-wrap"><canvas id="categoryChart"></canvas></div>
+                    </div>
                 </div>
 
-                <div class="chart-card glass-card">
-                    <div class="chart-header">
-                        <h3>订单状态</h3>
-                    </div>
-                    <canvas id="orderChart"></canvas>
+                <div class="insight-grid">
+                    <section class="funnel-card glass-card">
+                        <div class="section-header">
+                            <h3>转化漏斗</h3>
+                            <span class="section-note" id="funnel-conv-rate">整体转化率: --</span>
+                        </div>
+                        <div class="funnel-list">
+                            <div class="funnel-row">
+                                <span>访问</span>
+                                <div class="funnel-bar"><i style="width: 100%"></i></div>
+                                <strong>0</strong>
+                            </div>
+                            <div class="funnel-row">
+                                <span>浏览商品</span>
+                                <div class="funnel-bar"><i style="width: 72%"></i></div>
+                                <strong>0</strong>
+                            </div>
+                            <div class="funnel-row">
+                                <span>提交订单</span>
+                                <div class="funnel-bar"><i style="width: 38%"></i></div>
+                                <strong>0</strong>
+                            </div>
+                            <div class="funnel-row">
+                                <span>完成支付</span>
+                                <div class="funnel-bar"><i style="width: 26%"></i></div>
+                                <strong>0</strong>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="operations-card glass-card">
+                        <div class="section-header">
+                            <h3>运营提示</h3>
+                            <button class="btn-view-all" onclick="refreshData()">刷新</button>
+                        </div>
+                        <ul class="operations-list">
+                            <li><strong>成交金额</strong><span>加载中...</span></li>
+                            <li><strong>订单状态</strong><span>加载中...</span></li>
+                            <li><strong>商品结构</strong><span>加载中...</span></li>
+                        </ul>
+                    </section>
                 </div>
 
-                <div class="chart-card glass-card">
-                    <div class="chart-header">
-                        <h3>产品类别</h3>
+                <div class="recent-orders glass-card">
+                    <div class="section-header">
+                        <h3>最近订单</h3>
+                        <button class="btn-view-all" onclick="switchSection('订单')">查看全部 &rarr;</button>
                     </div>
-                    <canvas id="categoryChart"></canvas>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>订单号</th>
+                                    <th>渠道</th>
+                                    <th>金额</th>
+                                    <th>状态</th>
+                                    <th>日期</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orders-table"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
-            <div class="insight-grid">
-                <section class="funnel-card glass-card">
-                    <div class="section-header">
-                        <h3>转化漏斗</h3>
-                        <span class="section-note">演示数据</span>
+            <!-- ============ 订单管理区 ============ -->
+            <div id="section-订单" class="content-section" style="display:none;">
+                <section class="filter-strip glass-card">
+                    <div class="filter-group">
+                        <span>时间范围</span>
+                        <button class="filter-chip active" data-range="7">近 7 天</button>
+                        <button class="filter-chip" data-range="30">近 30 天</button>
+                        <button class="filter-chip" data-range="90">近 90 天</button>
                     </div>
-                    <div class="funnel-list">
-                        <div class="funnel-row">
-                            <span>访问</span>
-                            <div class="funnel-bar"><i style="width: 100%"></i></div>
-                            <strong>18,420</strong>
-                        </div>
-                        <div class="funnel-row">
-                            <span>浏览商品</span>
-                            <div class="funnel-bar"><i style="width: 72%"></i></div>
-                            <strong>13,260</strong>
-                        </div>
-                        <div class="funnel-row">
-                            <span>提交订单</span>
-                            <div class="funnel-bar"><i style="width: 38%"></i></div>
-                            <strong>6,998</strong>
-                        </div>
-                        <div class="funnel-row">
-                            <span>完成支付</span>
-                            <div class="funnel-bar"><i style="width: 26%"></i></div>
-                            <strong>4,789</strong>
-                        </div>
+                    <div class="filter-group">
+                        <span>渠道</span>
+                        <select id="channelFilterOrders">
+                            <option>全部渠道</option>
+                            <option>微信</option>
+                            <option>支付宝</option>
+                            <option>PC网页</option>
+                            <option>APP</option>
+                            <option>小程序</option>
+                        </select>
                     </div>
+                    <button class="export-btn" onclick="exportOrdersCSV()">导出报表</button>
                 </section>
 
-                <section class="operations-card glass-card">
+                <div class="recent-orders glass-card">
                     <div class="section-header">
-                        <h3>运营提示</h3>
-                        <button class="btn-view-all" onclick="refreshData()">刷新</button>
+                        <h3>全部订单</h3>
+                        <span class="section-note" id="orders-stats">加载中...</span>
                     </div>
-                    <ul class="operations-list">
-                        <li><strong>成交金额</strong><span>较上周期上升 8.2%，活动渠道贡献明显。</span></li>
-                        <li><strong>订单状态</strong><span>处理中订单占比 25%，可关注履约时效。</span></li>
-                        <li><strong>商品结构</strong><span>电子产品销量最高，图书和家居仍有提升空间。</span></li>
-                    </ul>
-                </section>
+                    <div class="table-container">
+                        <table>
+                            <thead id="full-orders-head">
+                                <tr>
+                                    <th data-sort="id" onclick="sortOrders('id')" class="sortable">订单号 <span class="sort-icon"></span></th>
+                                    <th data-sort="date" onclick="sortOrders('date')" class="sortable sorted-desc">日期 <span class="sort-icon"></span></th>
+                                    <th data-sort="channel" onclick="sortOrders('channel')" class="sortable">渠道 <span class="sort-icon"></span></th>
+                                    <th data-sort="amount" onclick="sortOrders('amount')" class="sortable">金额 <span class="sort-icon"></span></th>
+                                    <th data-sort="category" onclick="sortOrders('category')" class="sortable">类别 <span class="sort-icon"></span></th>
+                                    <th data-sort="status" onclick="sortOrders('status')" class="sortable">状态 <span class="sort-icon"></span></th>
+                                    <th data-sort="city" onclick="sortOrders('city')" class="sortable">城市 <span class="sort-icon"></span></th>
+                                    <th data-sort="sku" onclick="sortOrders('sku')" class="sortable">SKU <span class="sort-icon"></span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="full-orders-body"></tbody>
+                        </table>
+                    </div>
+                    <div class="pagination-bar">
+                        <span class="page-size-label">每页 15 条</span>
+                        <div id="pagination-container"></div>
+                    </div>
+                </div>
             </div>
 
-            <div class="recent-orders glass-card">
-                <div class="section-header">
-                    <h3>最近订单</h3>
-                    <button class="btn-view-all" onclick="viewAllOrders()">查看全部 →</button>
+            <!-- ============ 分析区 ============ -->
+            <div id="section-分析" class="content-section" style="display:none;">
+                <section class="filter-strip glass-card">
+                    <div class="filter-group">
+                        <span>时间范围</span>
+                        <button class="filter-chip active" data-range="7">近 7 天</button>
+                        <button class="filter-chip" data-range="30">近 30 天</button>
+                        <button class="filter-chip" data-range="90">近 90 天</button>
+                    </div>
+                    <div class="filter-group">
+                        <span>渠道</span>
+                        <select id="channelFilterAnalytics">
+                            <option>全部渠道</option>
+                            <option>微信</option>
+                            <option>支付宝</option>
+                            <option>PC网页</option>
+                            <option>APP</option>
+                            <option>小程序</option>
+                        </select>
+                    </div>
+                </section>
+
+                <!-- 概览统计 -->
+                <div class="stats-cards">
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);">ORD</div>
+                        <div class="stat-info">
+                            <div class="stat-label">订单总量</div>
+                            <div class="stat-value" id="analytics-total-orders">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #0ea5e9 0%, #10b981 100%);">&yen;</div>
+                        <div class="stat-info">
+                            <div class="stat-label">成交总额</div>
+                            <div class="stat-value" id="analytics-total-revenue">&yen;0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #334155 0%, #0f172a 100%);">AVG</div>
+                        <div class="stat-info">
+                            <div class="stat-label">客单价</div>
+                            <div class="stat-value" id="analytics-avg-amount">&yen;0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #16a34a 0%, #0891b2 100%);">%</div>
+                        <div class="stat-info">
+                            <div class="stat-label">完成率</div>
+                            <div class="stat-value" id="analytics-completed-rate">0%</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>订单号</th>
-                                <th>客户</th>
-                                <th>金额</th>
-                                <th>状态</th>
-                                <th>日期</th>
-                            </tr>
-                        </thead>
-                        <tbody id="orders-table">
-                        </tbody>
-                    </table>
+
+                <div class="insight-grid">
+                    <section class="chart-card glass-card">
+                        <div class="section-header"><h3>渠道分析</h3></div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr><th>渠道</th><th>订单数</th><th>成交额</th><th>均价</th></tr>
+                                </thead>
+                                <tbody id="analytics-channel-body"></tbody>
+                            </table>
+                        </div>
+                    </section>
+                    <section class="chart-card glass-card">
+                        <div class="section-header"><h3>类别分布</h3></div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr><th>类别</th><th>订单</th><th>占比</th><th>成交额</th></tr>
+                                </thead>
+                                <tbody id="analytics-category-body"></tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="recent-orders glass-card" style="margin-top:20px;">
+                    <div class="section-header"><h3>城市分布</h3></div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr><th>城市</th><th>订单数</th><th>占比</th></tr>
+                            </thead>
+                            <tbody id="analytics-city-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============ 设置区 ============ -->
+            <div id="section-设置" class="content-section" style="display:none;">
+                <div class="settings-grid">
+                    <div class="glass-card settings-card">
+                        <div class="section-header"><h3>数据管理</h3></div>
+                        <div class="settings-body">
+                            <div class="setting-row">
+                                <div class="setting-info">
+                                    <strong>重新生成数据</strong>
+                                    <span>随机生成 200 条新的模拟订单数据</span>
+                                </div>
+                                <button class="export-btn" onclick="refreshData()">生成新数据</button>
+                            </div>
+                            <div class="setting-row">
+                                <div class="setting-info">
+                                    <strong>导出当前数据</strong>
+                                    <span>将当前筛选条件下的订单导出为 CSV 文件</span>
+                                </div>
+                                <button class="export-btn" onclick="exportOrdersCSV()">导出 CSV</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-card settings-card">
+                        <div class="section-header"><h3>关于</h3></div>
+                        <div class="settings-body">
+                            <div class="setting-row">
+                                <div class="setting-info">
+                                    <strong>数据看板版本</strong>
+                                    <span>v2.0 &mdash; 动态数据生成 + 实时筛选联动</span>
+                                </div>
+                            </div>
+                            <div class="setting-row">
+                                <div class="setting-info">
+                                    <strong>数据来源</strong>
+                                    <span>模拟生成 200 条订单数据，覆盖 5 个渠道、4 种状态、5 个品类、8 座城市</span>
+                                </div>
+                            </div>
+                            <div class="setting-row">
+                                <div class="setting-info">
+                                    <strong>技术栈</strong>
+                                    <span>原生 JavaScript + Chart.js + CSS Grid</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>

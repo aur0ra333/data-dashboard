@@ -466,6 +466,272 @@ td {
     color: #ef4444;
 }
 
+/* ---- Loading Overlay ---- */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(246, 248, 251, 0.82);
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    gap: 16px;
+}
+
+.loading-overlay p {
+    color: var(--muted);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.loading-spinner {
+    width: 44px;
+    height: 44px;
+    border: 4px solid var(--line);
+    border-top-color: var(--blue);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+/* ---- Chart Wrap ---- */
+.chart-wrap {
+    position: relative;
+    height: 260px;
+}
+
+.chart-wrap canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* ---- Sortable Table Headers ---- */
+th.sortable {
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+    transition: color var(--transition);
+}
+
+th.sortable:hover {
+    color: var(--blue);
+}
+
+th .sort-icon {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 0.75rem;
+    opacity: 0.35;
+}
+
+th.sorted-asc .sort-icon::after {
+    content: '▲';
+    opacity: 1;
+}
+
+th.sorted-desc .sort-icon::after {
+    content: '▼';
+    opacity: 1;
+}
+
+th.sortable:not(.sorted-asc):not(.sorted-desc) .sort-icon::after {
+    content: '⇅';
+}
+
+/* ---- Pagination ---- */
+.pagination-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0 6px;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.page-size-label {
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+#pagination-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.page-btn {
+    min-width: 36px;
+    height: 36px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--ink);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: all var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-btn:hover:not(:disabled):not(.active) {
+    background: var(--surface-soft);
+    border-color: var(--blue);
+    color: var(--blue);
+}
+
+.page-btn.active {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: #ffffff;
+}
+
+.page-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.page-ellipsis {
+    padding: 0 6px;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+/* ---- Expandable Detail Rows ---- */
+.order-row {
+    cursor: pointer;
+    transition: background var(--transition);
+}
+
+.order-row:hover {
+    background: var(--blue-soft);
+}
+
+.order-id-link {
+    color: var(--blue);
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: transparent;
+    transition: text-decoration-color var(--transition);
+}
+
+.order-id-link:hover {
+    text-decoration-color: var(--blue);
+}
+
+.amount-cell {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.detail-row td {
+    padding: 0;
+    border-bottom: 2px solid var(--blue);
+}
+
+.detail-card {
+    padding: 20px 24px;
+    background: var(--surface-soft);
+    border-left: 4px solid var(--blue);
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px 24px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.detail-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detail-item strong {
+    font-size: 0.95rem;
+    color: var(--ink);
+}
+
+/* ---- Status Badge: Refunded ---- */
+.status-badge.refunded {
+    background: rgba(139, 92, 246, 0.12);
+    color: #8b5cf6;
+}
+
+/* ---- Mini Bar (Analytics) ---- */
+.mini-bar {
+    height: 8px;
+    border-radius: 999px;
+    background: var(--surface-soft);
+    overflow: hidden;
+    min-width: 80px;
+}
+
+.mini-bar-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--blue), #10b981);
+    transition: width 0.4s ease;
+}
+
+/* ---- Settings ---- */
+.settings-grid {
+    display: grid;
+    gap: 24px;
+}
+
+.settings-card {
+    padding: 25px;
+}
+
+.settings-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.setting-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 16px;
+    border-radius: 12px;
+    background: var(--surface-soft);
+    border: 1px solid var(--line);
+}
+
+.setting-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.setting-info strong {
+    color: var(--ink);
+    font-size: 1rem;
+}
+
+.setting-info span {
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 1024px) {
     .stats-cards {
@@ -475,6 +741,10 @@ td {
     .charts-grid,
     .insight-grid {
         grid-template-columns: 1fr;
+    }
+
+    .detail-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -512,5 +782,19 @@ td {
     .top-bar-right {
         flex-wrap: wrap;
         justify-content: center;
+    }
+
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pagination-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .setting-row {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
