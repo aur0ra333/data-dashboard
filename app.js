@@ -371,6 +371,11 @@ function loadRecentOrders() {
     const tbody = document.getElementById('orders-table');
     if (!tbody) return;
 
+    if (visible.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--muted);">暂无匹配的订单数据</td></tr>';
+        return;
+    }
+
     tbody.innerHTML = visible.map(o => `
         <tr>
             <td><span class="order-id-link" title="点击查看详情">${o.id}</span></td>
@@ -415,6 +420,13 @@ function renderFullOrderTable() {
     // 渲染表体
     const tbody = document.getElementById('full-orders-body');
     if (!tbody) return;
+
+    if (sorted.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--muted);">暂无匹配的订单数据</td></tr>';
+        document.getElementById('orders-stats').textContent = '共 0 条订单';
+        document.getElementById('pagination-container').innerHTML = '';
+        return;
+    }
 
     tbody.innerHTML = pageOrders.map(o => `
         <tr id="row-${o.id}" class="order-row" data-order-id="${o.id}">

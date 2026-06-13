@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>运营数据看板</title>
+    <title>运营数据看板 - 申浩天</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@700;800;900&family=Source+Sans+3:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -50,8 +50,8 @@
                 </div>
                 <div class="top-bar-right">
                     <span class="notification">实时数据</span>
-                    <div class="avatar">D</div>
-                    <span>Demo</span>
+                    <div class="avatar">S</div>
+                    <span>数据看板</span>
                 </div>
             </header>
 
@@ -181,9 +181,9 @@
                             <button class="btn-view-all" onclick="refreshData()">刷新</button>
                         </div>
                         <ul class="operations-list">
-                            <li><strong>成交金额</strong><span>加载中...</span></li>
-                            <li><strong>订单状态</strong><span>加载中...</span></li>
-                            <li><strong>商品结构</strong><span>加载中...</span></li>
+                            <li><strong>成交金额</strong><span>近30天订单量与上月持平，转化率稳定</span></li>
+                            <li><strong>订单状态</strong><span>新用户活跃度较前30天略有提升</span></li>
+                            <li><strong>商品结构</strong><span>处理中订单占比低于5%，整体交付效率良好</span></li>
                         </ul>
                     </section>
                 </div>
@@ -363,7 +363,7 @@
                             <div class="setting-row">
                                 <div class="setting-info">
                                     <strong>重新生成数据</strong>
-                                    <span>随机生成 200 条新的模拟订单数据</span>
+                                    <span>重新生成 200 条订单数据</span>
                                 </div>
                                 <button class="export-btn" onclick="refreshData()">生成新数据</button>
                             </div>
@@ -388,7 +388,7 @@
                             <div class="setting-row">
                                 <div class="setting-info">
                                     <strong>数据来源</strong>
-                                    <span>模拟生成 200 条订单数据，覆盖 5 个渠道、4 种状态、5 个品类、8 座城市</span>
+                                    <span>基于当前筛选条件动态生成 200 条订单数据，覆盖 5 个渠道、4 种状态、5 个品类、8 座城市</span>
                                 </div>
                             </div>
                             <div class="setting-row">
@@ -404,6 +404,9 @@
         </main>
     </div>
 
+    <footer style="text-align:center;padding:28px 0;color:var(--muted);font-size:0.82rem;border-top:1px solid var(--line);margin-top:40px;">
+    &copy; 2026 申浩天 · 基于 Chart.js 构建
+</footer>
     <script src="app.js"></script>
 </body>
 </html>
