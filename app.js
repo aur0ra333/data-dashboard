@@ -1,5 +1,5 @@
-Chart.defaults.color = 'rgba(255, 255, 255, 0.7)';
-Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+Chart.defaults.color = 'rgba(23, 32, 42, 0.7)';
+Chart.defaults.borderColor = 'rgba(23, 32, 42, 0.1)';
 
 let charts = {};
 let currentRange = 7;
@@ -283,9 +283,10 @@ function updateChartColors(isLight) {
 
 function loadTheme() {
     const savedTheme = localStorage.getItem('dashboardTheme');
-    if (savedTheme === 'light') {
+    const themeToggle = document.getElementById('theme-toggle');
+    if (savedTheme === 'light' && themeToggle) {
         document.body.classList.add('light-theme');
-        document.getElementById('theme-toggle').querySelector('.icon').textContent = '☀️';
+        themeToggle.querySelector('.icon').textContent = '☀️';
         updateChartColors(true);
     }
 }
@@ -320,7 +321,10 @@ function exportOrdersCSV() {
 }
 
 function setupEventListeners() {
-    document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
+    }
     document.getElementById('channelFilter').addEventListener('change', refreshDashboard);
     document.getElementById('salesFilter').addEventListener('change', () => updateSalesChart());
 
@@ -352,7 +356,7 @@ function showNotification(message, type = 'info') {
         top: 20px;
         right: 20px;
         padding: 15px 25px;
-        background: ${type === 'success' ? 'linear-gradient(135deg, #2563eb, #0891b2)' : '#374151'};
+        background: ${type === 'success' ? '#2563eb' : '#667085'};
         color: white;
         border-radius: 10px;
         box-shadow: 0 5px 15px rgba(0,0,0,0.3);
